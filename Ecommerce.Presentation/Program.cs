@@ -1,6 +1,7 @@
 using System.Text;
 using Ecommerce.Application.Interfaces;
 using Ecommerce.Application.UseCases;
+using Ecommerce.Application.UseCases.Products.Queries;
 using Ecommerce.Infrastructure.Persistence;
 using Ecommerce.Infrastructure.Repositories;
 using Ecommerce.Infrastructure.Services;
@@ -13,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddMediatR(configuration =>
+    configuration.RegisterServicesFromAssembly(typeof(GetAllProductsQuery).Assembly));
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Ecommerce API", Version = "v1" });
@@ -45,6 +48,8 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<PasswordHasher>();
+builder.Services.AddScoped<AdminUserSeeder>();
 
 builder.Services.AddScoped<IAuthUseCase, AuthUseCase>();
 builder.Services.AddScoped<IUserUseCase, UserUseCase>();
@@ -70,6 +75,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var adminSeeder = scope.ServiceProvider.GetRequiredService<AdminUserSeeder>();
+    await adminSeeder.SeedAsync();
+}
 
 app.UseSwagger();
 app.UseSwaggerUI();

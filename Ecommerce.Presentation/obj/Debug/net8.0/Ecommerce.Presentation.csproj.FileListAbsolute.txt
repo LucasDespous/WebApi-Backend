@@ -167,3 +167,5 @@ C:\Users\Lucas\Desktop\Backend\Ecommerce.Presentation\obj\Debug\net8.0\Ecommerce
 C:\Users\Lucas\Desktop\Backend\Ecommerce.Presentation\obj\Debug\net8.0\Ecommerce.Presentation.genruntimeconfig.cache
 C:\Users\Lucas\Desktop\Backend\Ecommerce.Presentation\obj\Debug\net8.0\ref\Ecommerce.Presentation.dll
 C:\Users\Lucas\Desktop\Backend\Ecommerce.Presentation\obj\Debug\net8.0\Ecommerce.Presentation.sourcelink.json
+C:\Users\Lucas\Desktop\Backend\Ecommerce.Presentation\bin\Debug\net8.0\MediatR.dll
+C:\Users\Lucas\Desktop\Backend\Ecommerce.Presentation\bin\Debug\net8.0\MediatR.Contracts.dll
